@@ -33,13 +33,13 @@ def add():
     return redirect(url_for('home'))
 
 
-@app.route('/update/<int:todo_id>', methods=['get'])
+@app.route('/update/<int:todo_id>', methods=['GET'])
 def update(todo_id):
-    todo = Todo.query.filter_by(id=todo_id).first()
-    todo.complete = not todo.complete
-    db.session.commit()
+    todo = Todo.query.get(todo_id)
+    if todo is not None:
+        todo.complete = not todo.complete
+        db.session.commit()
     return redirect(url_for("home"))
-
 
 
 
