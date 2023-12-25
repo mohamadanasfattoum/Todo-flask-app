@@ -24,7 +24,13 @@ def home():
     todo_tist = db.session.query(Todo).all()
     return render_template('base.html', todo_list=todo_list)
 
-
+@app.post('/add')
+def add():
+    title = request.form.get("title")
+    new_todo = Todo(title=title, complete=fals)
+    db.session.add(new_todo)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 
 
