@@ -43,6 +43,16 @@ def update(todo_id):
 
 
 
+@app.route('/update/<int:todo_id>', methods=['GET'])
+def delete(todo_id):
+    todo = Todo.query.get(todo_id)
+    if todo is not None:
+        db.session.delete(todo)
+        db.session.commit()
+    return redirect(url_for("home"))
+
+
+
 
 
 
