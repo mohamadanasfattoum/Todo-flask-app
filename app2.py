@@ -33,22 +33,27 @@ def add():
     return redirect(url_for('home'))
 
 
-@app.route('/update/<int:todo_id>', methods=['POST'])
+# @app.post('/update/<int:todo_id>')
+# def update(todo_id):
+#     todo = db.session.query(Todo).filter(Todo.id == todo_id).first()
+#     todo.complete = not todo.complete
+#     db.session.commit()
+#     return redirect(url_for("home"))
+
+
+@app.post("/update/<int:todo_id>")
 def update(todo_id):
-    todo = Todo.query.get(todo_id)
-    if todo is not None:
-        todo.complete = not todo.complete
-        db.session.commit()
+    todo = Todo.query.filter_by(id=todo_id).first()
+    todo.complete = not todo.complete
+    db.session.commit()
     return redirect(url_for("home"))
 
 
-
-@app.route('/delete/<int:todo_id>', methods=['GET'])
+@app.get('/delete/<int:todo_id>')
 def delete(todo_id):
-    todo = Todo.query.get(todo_id)
-    if todo is not None:
-        db.session.delete(todo)
-        db.session.commit()
+    todo = db.session.query(Todo).filter(Todo.id == todo_id).first()
+    db.session.delete(todo)
+    db.session.commit()
     return redirect(url_for("home"))
 
 
