@@ -19,18 +19,29 @@ class Todo(db.Model): # database table
 
 
 
-@app.get('/')
+@app.route('/')
 def home():
     todo_tist = db.session.query(Todo).all()
     return render_template('base.html', todo_list=todo_list)
 
-@app.post('/add')
+@app.route('/add', methods=['POST'])
 def add():
     title = request.form.get("title")
     new_todo = Todo(title=title, complete=fals)
     db.session.add(new_todo)
     db.session.commit()
     return redirect(url_for('home'))
+
+
+@app.route('/update/<int:todo_id>', methods=['get'])
+def update(todo_id):
+    todo = Todo.query.filter_by(id=todo_id).first()
+    todo.complete = not todo.complete
+    db.session.commit()
+    return redirect(url_for("home"))
+
+
+
 
 
 
