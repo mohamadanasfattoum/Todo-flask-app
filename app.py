@@ -33,14 +33,20 @@ def add():
     return redirect(url_for('home'))
 
 
-@app.route('/update/<int:todo_id>', methods=['POST'])
+@app.route('/update/<int:todo_id>', methods=['GET', 'POST'])
 def update(todo_id):
-    todo = Todo.query.get(todo_id)
-    if todo is not None:
-        todo.complete = not todo.complete
-        db.session.commit()
-    return redirect(url_for("home"))
-
+    if request.method == 'POST':
+        todo = Todo.query.get(todo_id)
+        if todo is not None:
+            todo.title = request.form.get("title")      
+            db.session.commit()
+        return redirect(url_for("home"))
+    else:
+        todo = Todo.query.get(todo_id)
+        if todo is not None:
+            return render_template("update.html", todo=todo)
+        else:
+            return redirect(url_for("home"))
 
 
 @app.route('/delete/<int:todo_id>', methods=['GET'])
