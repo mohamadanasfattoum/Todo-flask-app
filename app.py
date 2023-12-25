@@ -21,13 +21,13 @@ class Todo(db.Model): # database table
 
 @app.route('/')
 def home():
-    todo_tist = db.session.query(Todo).all()
+    todo_list = db.session.query(Todo).all()
     return render_template('base.html', todo_list=todo_list)
 
 @app.route('/add', methods=['POST'])
 def add():
     title = request.form.get("title")
-    new_todo = Todo(title=title, complete=fals)
+    new_todo = Todo(title=title, complete=False)
     db.session.add(new_todo)
     db.session.commit()
     return redirect(url_for('home'))
