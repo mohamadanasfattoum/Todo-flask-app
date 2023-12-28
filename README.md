@@ -46,3 +46,9 @@ To run the Todo App project, you can follow these steps:
    This will start the server, and you should see output indicating that the application is running. By default, the application can be accessed at http://localhost:5000 in your web browser.
 
 That's it! You should now be able to access and use the Todo App in your local environment. Feel free to explore the code and make any necessary modifications or improvements according to your requirements.
+
+
+
+### project screenshot
+![](https://github.com/mohamadanasfattoum/Todo-flask-app/blob/main/FireShot.png)
+
